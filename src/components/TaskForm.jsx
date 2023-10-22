@@ -2,20 +2,39 @@ import { useState } from 'react'
 import './taskform.css'
 import Tag from '../components/Tag'
 const TaskForm = () => {
+  const [taskData, setTaskData] = useState({
+    task:"",
+    status:"todo",
+  })
+
+  const handleChange=(e)=>{
+    
+    // const name=e.target.name;
+    // const value=e.target.value;
+    const {name, value} =e.target;
+    // console.log(e.target)
+    setTaskData((prev)=>{
+        return{
+          ...prev, [name]:value
+        }
+    })
+  }
+  
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(taskData)
   }
 
-  const handleTaskChange= (e) => {
-    setTask(e.target.value)
-  }
+  // const handleTaskChange= (e) => {
+  //   setTask(e.target.value)
+  // }
 
-  const handleStatusChange= (e) => {
-  setStatus(e.target.value)
-  }
+  // const handleStatusChange= (e) => {
+  // setStatus(e.target.value)
+  // }
  
-  const [task, setTask] = useState("")
-  const [status, setStatus] = useState("")
+  // const [task, setTask] = useState("")
+  // const [status, setStatus] = useState("")
   // console.log(status)
   // console.log(task)
   return (
@@ -24,7 +43,8 @@ const TaskForm = () => {
         onSubmit={handleSubmit}
         >
             <input type="text" className="task-input" 
-            onChange={handleTaskChange}
+            name='task'
+            onChange={handleChange}
             
             placeholder="Enter your task"/>
 
@@ -38,14 +58,14 @@ const TaskForm = () => {
                 <button className="tag">JavaScript</button>
                 <button className="tag">React</button> */}
 
-                <select name="" id=""  className="task-status" onChange={handleStatusChange}>
-                    <option value=""> select option</option>
+                <select name="status" id=""  className="task-status" onChange={handleChange}>
+                    {/* <option value=""> select option</option> */}
                     <option value="todo">to do </option>
                     <option value="doing">doing </option>
                     <option value="done">done </option>
                 </select>
             
-                <button type="submit" className="task-submit"> + add task</button>
+                <button type="submit" className="task-submit" onSubmit={handleSubmit}> + add task</button>
             </div>
         </form>
     </header>
